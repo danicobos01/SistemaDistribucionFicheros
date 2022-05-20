@@ -1,0 +1,16 @@
+Explicacion de los añadidos especiales: 
+
+Nuestra aplicación es un sistema de programacion distribuida en el que numerosos clientes y un servidor comunican entre sí y los clientes entre ellos. 
+En esta versión lo que contiene cada usuario son películas, o más bien la información de estas. Cada dato pelicula contiene el nombre, el año en el que fue estrenada y su director/a.
+
+En el menú he añadido una opción más, que es la de crear registros. Inicialmente la tabla está vacía y si un usuario quiere introducir sus registros
+tiene la opción en el menú. Cuando un cliente mete un registro, la tabla de datos que hemos usado se actualiza y se crea un .txt con el nombre de la pelicula
+que contiene toda la información relevante de la misma. Este txt no tiene ningun valor y sentido más alla de "simular" la descarga en el receptor, que recibe
+el contenido del fichero gracias al emisor. 
+
+Para la concurrencia, con lo relacionado al acceso de datos globales, he utilizado dos monitores lectores-escritores, y dentro de cada uno un lock con cola de escritores y cola de lectores.
+También se ha usado un LockTicket para evitar que al cliente le apareciese el menú antes de lo necesario. 
+También he añadido el uso de un semáforo en el servidor para controlar la repetición en la selección de puertos en las comunicaciones peer-to-peer. 
+
+En cuanto al control de excepciones, he sido muy flexible, y por lo tanto si se introduce algún dato raro o se busca una pelicula que no ha sido introducida el
+programa no funcionará correctamente. 
